@@ -40,6 +40,7 @@ class TestDogshell(unittest.TestCase):
         config.add_section('Connection')
         config.set('Connection', 'apikey', os.environ['DATADOG_API_KEY'])
         config.set('Connection', 'appkey', os.environ['DATADOG_APP_KEY'])
+        # Make note that this is not a `host`, its actually base URL, i.e. `https://app.datadoghq.com`
         config.set('Connection', 'api_host', os.environ['DATADOG_HOST'])
         config.write(self.config_file)
         self.config_file.flush()
@@ -545,7 +546,7 @@ class TestDogshell(unittest.TestCase):
 
     def test_service_check(self):
         out, err, return_code = self.dogshell(["service_check", "check", "check_pg",
-                                              'host0', "1"])
+                                              'host0', "0"])
         assert "status" in out, out
         out = json.loads(out)
         self.assertEquals(out["status"], 'ok')
