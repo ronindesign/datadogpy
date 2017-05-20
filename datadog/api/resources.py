@@ -33,6 +33,12 @@ class CreateableAPIResource(object):
         """
         if params is None:
             params = {}
+
+        if body:
+            for key, value in body.items():
+                if value is None:
+                    del body[key]
+
         if method == 'GET':
             return APIClient.submit('GET', cls._class_url, **body)
         if id is None:
