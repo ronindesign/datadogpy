@@ -19,7 +19,7 @@ To install from pip:
 
 To install from source:
 
-    python setup.py install
+    pip install -E /path/to/datadogpy/
 
 
 Quick Start Guide
